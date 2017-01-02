@@ -87,7 +87,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;HAVE_SNPRINTF;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -108,7 +108,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;HAVE_SNPRINTF;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -134,7 +134,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;LOG4CPP_HAVE_BOOST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;LOG4CPP_HAVE_BOOST;HAVE_SNPRINTF;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -155,7 +155,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;LOG4CPP_HAVE_BOOST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;LOG4CPP_HAVE_BOOST;HAVE_SNPRINTF;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
@@ -210,25 +210,29 @@
     <None Include="..\..\include\log4cpp\NDC.hh" />
     <None Include="..\..\include\log4cpp\NTEventLogAppender.hh" />
     <CustomBuild Include="..\NTEventLogCategories.mc">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">"$(VS100COMNTOOLS)vsvars32.bat" if not exist $(OutDir) md $(OutDir)
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">"$(VS140COMNTOOLS)vsvars32.bat"
+if not exist $(OutDir) md $(OutDir)
 mc.exe -h "$(OutDir)" -r "$(OutDir)" "$(ProjectDir)..\%(Filename).mc"
 rc.exe -r -fo "$(OutDir)%(Filename).res" "$(OutDir)%(Filename).rc"
 link.exe /MACHINE:IX86 -dll -noentry -out:"$(OutDir)NTEventLogAppender.dll" "$(OutDir)%(Filename).res"
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS100COMNTOOLS)vsvars32.bat" if not exist $(OutDir) md $(OutDir)
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS140COMNTOOLS)vsvars32.bat"
+if not exist $(OutDir) md $(OutDir)
 mc.exe -h "$(OutDir)" -r "$(OutDir)" "$(ProjectDir)..\%(Filename).mc"
 rc.exe -r -fo "$(OutDir)%(Filename).res" "$(OutDir)%(Filename).rc"
 link.exe /MACHINE:IX86 -dll -noentry -out:"$(OutDir)NTEventLogAppender.dll" "$(OutDir)%(Filename).res"
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">"$(VS100COMNTOOLS)vsvars32.bat" if not exist $(OutDir) md $(OutDir)
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">"$(VS140COMNTOOLS)vsvars32.bat"
+if not exist $(OutDir) md $(OutDir)
 mc.exe -h $(OutDir) -r $(OutDir) $(ProjectDir)..\%(Filename).mc
 RC.exe -r -fo $(OutDir)%(Filename).res $(OutDir)%(Filename).rc
 link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutDir)%(Filename).res
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS100COMNTOOLS)vsvars32.bat" if not exist $(OutDir) md $(OutDir)
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS140COMNTOOLS)vsvars32.bat"
+if not exist $(OutDir) md $(OutDir)
 mc.exe -h $(OutDir) -r $(OutDir) $(ProjectDir)..\%(Filename).mc
 RC.exe -r -fo $(OutDir)%(Filename).res $(OutDir)%(Filename).rc
 link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutDir)%(Filename).res

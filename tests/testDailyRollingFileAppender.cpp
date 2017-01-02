@@ -40,7 +40,7 @@ static const char* const nestedDir = "nesteddir";
 #else 
 #define PATHDELIMITER "\\"
 #endif
-const char* const nesteddirname = "nesteddir"PATHDELIMITER;
+const char* const nesteddirname = "nesteddir" PATHDELIMITER;
 
 
 class DailyRollingTest {
